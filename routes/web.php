@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/gastos', 'ExpenseController');
+Route::resource('/ingresos', 'IncomeController');
+Route::resource('/contacto', 'ContactController');

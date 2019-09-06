@@ -13,7 +13,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        //
+        return view('incomes.incomes');
     }
 
     /**
@@ -23,7 +23,7 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('incomes.create');
     }
 
     /**

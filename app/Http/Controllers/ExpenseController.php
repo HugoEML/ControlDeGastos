@@ -13,7 +13,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        return view('expenses.expenses');
     }
 
     /**
@@ -23,7 +23,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        //
+        return view('expenses.create');
     }
 
     /**
