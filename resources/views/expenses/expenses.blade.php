@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gastos</title>
-</head>
-<body>
-    <h1>Registros de los Gastos</h1>
-</body>
-</html>
+@extends('layouts.layout')
+
+@section('title', 'Gastos')
+
+@section('contenido')
+    <h2>Mes de septiembre</h2>
+    <span>Detalle de gastos</span>
+    <ol>
+        <li>Gasto 1</li>
+        <li>Gasto 2</li>
+    </ol>
+@endsection
