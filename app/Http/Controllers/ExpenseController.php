@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Expense;
 
 class ExpenseController extends Controller
 {
@@ -13,7 +14,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expenses.expenses');
+        $expenses = Expense::All();
+        return view('expenses.expenses', compact('expenses'));
     }
 
     /**
@@ -34,7 +36,16 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $expense = new Expense();
+        $expense->description = $request->input('description');
+        $expense->amount = $request->input('amount');
+        $expense->category = $request->input('category');
+        $expense->date = $request->input('date');
+        $expense->save();
+
+        $expenses = Expense::All();
+        return view('expenses.expenses', compact('expenses'));
+
     }
 
     /**
