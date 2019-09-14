@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Income;
-use App\CategoryI;
+use App\CategoryE;
 
-class IncomeController extends Controller
+class CategoryEController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::All();
-        $categories = CategoryI::All();
-        return view('incomes.incomes', compact('incomes'));
+        $categories = CategoryE::All();
+        return view('category_expenses.index', compact('categories'));
     }
 
     /**
@@ -27,8 +25,7 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $categories = CategoryI::All();
-        return view('incomes.create', compact('categories'));
+        return view('category_expenses.create');
     }
 
     /**
@@ -39,15 +36,13 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        $income = new Income();
-        $income->description = $request->input('description');
-        $income->amount = $request->input('amount');
-        $income->category_id = $request->input('category');
-        $income->date = $request->input('date');
-        $income->save();
+        $category = new CategoryE();
+        $category->name = $request->input('name');
+        $category->date = $request->input('date');
+        $category->save();
 
-        $incomes = Income::All();
-        return view('incomes.incomes', compact('incomes'));
+        $categories = CategoryE::All();
+        return view('category_expenses.index', compact('categories'));
     }
 
     /**

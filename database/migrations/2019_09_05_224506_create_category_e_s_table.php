@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncomesTable extends Migration
+class CreateCategoryESTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateIncomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incomes', function (Blueprint $table) {
+        Schema::create('category_e_s', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
-            $table->integer('amount');
-            $table->unsignedBigInteger('category_id');
+            $table->string('name');
             $table->string('date');
-            $table->index(['id']);
-
-            $table->foreign('category_id')->references('id')->on('category_i_s');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ class CreateIncomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incomes');
+        Schema::dropIfExists('category_e_s');
     }
 }

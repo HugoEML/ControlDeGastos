@@ -18,17 +18,25 @@
                 <th scope="col">Monto</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Fecha</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($expenses as $expense)
-            <tr>
-            <th scope="row">{{$expense->id}}</th>
-                <td>{{$expense->description}}</td>
-                <td>{{$expense->amount}}</td>
-                <td>{{$expense->category}}</td>
-                <td>{{$expense->date}}</td>
-            </tr>
+                @foreach ($categories as $category)                                    
+                    <tr>
+                    <th scope="row">{{$expense->id}}</th>
+                        <td>{{$expense->description}}</td>
+                        <td>{{$expense->amount}}</td>
+                        @if($expense->category_id == $category->id)
+                            <td>{{$category->name}}</td>
+                        @endif
+                        <td>{{$expense->date}}</td>
+                        <td>
+                        <a href="/gastos/{{$expense->id}}" class="btn btn-warning">Editar</a>                    
+                        </td>
+                    </tr>
+                @endforeach
             @endforeach
         </tbody>
     </table>

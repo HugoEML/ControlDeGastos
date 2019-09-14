@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Expense;
+use App\CategoryE;
 
 class ExpenseController extends Controller
 {
@@ -15,7 +16,8 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::All();
-        return view('expenses.expenses', compact('expenses'));
+        $categories = CategoryE::All();
+        return view('expenses.expenses', compact(['expenses', 'categories']));
     }
 
     /**
@@ -25,7 +27,8 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses.create');
+        $categories = CategoryE::All();
+        return view('expenses.create', compact('categories'));
     }
 
     /**
@@ -39,7 +42,7 @@ class ExpenseController extends Controller
         $expense = new Expense();
         $expense->description = $request->input('description');
         $expense->amount = $request->input('amount');
-        $expense->category = $request->input('category');
+        $expense->category_id = $request->input('category');
         $expense->date = $request->input('date');
         $expense->save();
 
@@ -67,7 +70,9 @@ class ExpenseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $expense = Expense::All();
+    
+        return view('expenses.edit', compact('expense'));
     }
 
     /**

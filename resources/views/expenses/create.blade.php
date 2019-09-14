@@ -26,13 +26,17 @@
             <div class="form-group row">
                 <label for="category" class="col-sm-2 col-form-label">Categoría:</label>
                 <div class="col-sm-10">
-                    <input name="category" type="text" class="form-control" placeholder="Categoría">
-                </div>
+                    <select name="category" class="form-control">
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>                
             </div>  
             <div class="form-group row">
                 <label for="date" class="col-sm-2 col-form-label">Fecha:</label>
                 <div class="col-sm-10">
-                    <input name="date" type="text" class="form-control" placeholder="dd/mm/aaaa">
+                    <input name="date" type="date" class="form-control" placeholder="dd/mm/aaaa">
                 </div>
             </div> 
             <button type="submit" class="btn btn-outline-primary">Guardar</button> 

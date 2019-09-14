@@ -17,8 +17,11 @@ class CreateExpensesTable extends Migration
             $table->bigIncrements('id');
             $table->string('description');
             $table->integer('amount');
-            $table->string('category');
+            $table->unsignedBigInteger('category_id');
             $table->string('date');
+            $table->index(['id']);
+
+            $table->foreign('category_id')->references('id')->on('category_e_s');
             $table->timestamps();
         });
     }

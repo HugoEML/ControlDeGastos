@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::resource('/gastos', 'ExpenseController');
 Route::resource('/ingresos', 'IncomeController');
 Route::resource('/contacto', 'ContactController');
+Route::resource('/categoriagastos', 'CategoryEController');
+Route::resource('/categoriaingresos', 'CategoryIController');

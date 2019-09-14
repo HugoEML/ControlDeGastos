@@ -15,6 +15,8 @@
                 <a class="nav-item nav-link" href="/">Inicio</a>
                 <a class="nav-item nav-link" href="/gastos">Gastos</a>
                 <a class="nav-item nav-link" href="/ingresos">Ingresos</a>
+                <a class="nav-item nav-link" href="/categoriagastos">Categoria de Gastos</a>
+                <a class="nav-item nav-link" href="/categoriaingresos">Categoria de Ingresos</a>
             </div>  
         </div>
     </nav>
