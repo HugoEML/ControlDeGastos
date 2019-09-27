@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoryIncome;
 use Illuminate\Http\Request;
-use App\CategoryE;
 
-class CategoryEController extends Controller
+class CategoryIncomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class CategoryEController extends Controller
      */
     public function index()
     {
-        $categories = CategoryE::All();
-        return view('category_expenses.index', compact('categories'));
+        return view('categoryincome.index', [
+            'categories' => CategoryIncome::get()
+        ]);
     }
 
     /**
@@ -25,7 +26,9 @@ class CategoryEController extends Controller
      */
     public function create()
     {
-        return view('category_expenses.create');
+        return view('categoryincome.create', [
+            'category' => new CategoryIncome
+        ]);
     }
 
     /**
@@ -34,15 +37,16 @@ class CategoryEController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $category = new CategoryE();
-        $category->name = $request->input('name');
-        $category->date = $request->input('date');
-        $category->save();
+        $fields = request()->validate([
+            'name' => 'required',
+            'date' => 'required|date'
+        ]);
 
-        $categories = CategoryE::All();
-        return view('category_expenses.index', compact('categories'));
+        CategoryIncome::create($fields);
+
+        return redirect()->route('categoryincome.index')->with('status','Registro exitoso');
     }
 
     /**
@@ -62,9 +66,11 @@ class CategoryEController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryIncome $categoryincome)
     {
-        //
+        return view('categoryincome.edit', [
+            'category' => $categoryincome
+        ]);
     }
 
     /**
@@ -74,9 +80,16 @@ class CategoryEController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryIncome $categoryincome)
     {
-        //
+        $fields = request()->validate([
+            'name' => 'required',
+            'date' => 'required|date'
+        ]);
+
+        $categoryincome->update($fields);
+
+        return redirect()->route('categoryincome.index')->with('status','Editado con éxito.');
     }
 
     /**

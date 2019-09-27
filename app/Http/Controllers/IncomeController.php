@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Income;
-use App\CategoryI;
+use App\CategoryIncome;
+use Illuminate\Http\Request;
 
 class IncomeController extends Controller
 {
@@ -15,9 +15,10 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::All();
-        $categories = CategoryI::All();
-        return view('incomes.incomes', compact('incomes'));
+        return view('income.index', [
+            'incomes' => Income::get(),
+            'categories' => CategoryIncome::get()
+        ]);
     }
 
     /**
@@ -27,8 +28,9 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $categories = CategoryI::All();
-        return view('incomes.create', compact('categories'));
+        return view('income.create', [
+            'categories' => CategoryIncome::get()
+        ]);
     }
 
     /**
@@ -37,17 +39,18 @@ class IncomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $income = new Income();
-        $income->description = $request->input('description');
-        $income->amount = $request->input('amount');
-        $income->category_id = $request->input('category');
-        $income->date = $request->input('date');
-        $income->save();
+        $fields = request()->validate([
+            'description' => 'required',
+            'amount' => 'required',
+            'category_id' => 'required',
+            'date' => 'required|date'
+        ]);
 
-        $incomes = Income::All();
-        return view('incomes.incomes', compact('incomes'));
+        Income::create($fields);
+
+        return redirect()->route('income.index')->with('status','Registro exitoso');
     }
 
     /**
@@ -67,9 +70,12 @@ class IncomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Income $income)
     {
-        //
+        return view('income.edit',[
+            'income' => $income,
+            'categories' => CategoryIncome::get()
+        ]);
     }
 
     /**
@@ -79,9 +85,18 @@ class IncomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Income $income)
     {
-        //
+        $fields = request()->validate([
+            'description' => 'required',
+            'amount' => 'required',
+            'category_id' => 'required',
+            'date' => 'required|date'
+        ]);
+
+        $income->update($fields);
+
+        return redirect()->route('income.index')->with('status','Editado con éxito.');
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Expense;
-use App\CategoryE;
+use App\CategoryExpense;
+use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
@@ -15,9 +15,10 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::All();
-        $categories = CategoryE::All();
-        return view('expenses.expenses', compact(['expenses', 'categories']));
+        return view('expense.index', [
+            'expenses' => Expense::get(),
+            'categories' => CategoryExpense::get()
+        ]);
     }
 
     /**
@@ -27,8 +28,9 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        $categories = CategoryE::All();
-        return view('expenses.create', compact('categories'));
+        return view('expense.create', [
+            'categories' => CategoryExpense::get()
+        ]);
     }
 
     /**
@@ -37,18 +39,18 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $expense = new Expense();
-        $expense->description = $request->input('description');
-        $expense->amount = $request->input('amount');
-        $expense->category_id = $request->input('category');
-        $expense->date = $request->input('date');
-        $expense->save();
+        $fields = request()->validate([
+            'description' => 'required',
+            'amount' => 'required',
+            'category_id' => 'required',
+            'date' => 'required|date'
+        ]);
 
-        $expenses = Expense::All();
-        return view('expenses.expenses', compact('expenses'));
+        Expense::create($fields);
 
+        return redirect()->route('expense.index')->with('status','Registro exitoso');
     }
 
     /**
@@ -68,11 +70,12 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Expense $expense)
     {
-        $expense = Expense::All();
-    
-        return view('expenses.edit', compact('expense'));
+        return view('expense.edit',[
+            'expense' => $expense,
+            'categories' => CategoryExpense::get()
+        ]);
     }
 
     /**
@@ -82,9 +85,18 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Expense $expense)
     {
-        //
+        $fields = request()->validate([
+            'description' => 'required',
+            'amount' => 'required',
+            'category_id' => 'required',
+            'date' => 'required|date'
+        ]);
+
+        $expense->update($fields);
+
+        return redirect()->route('expense.index')->with('status','Editado con éxito.');
     }
 
     /**

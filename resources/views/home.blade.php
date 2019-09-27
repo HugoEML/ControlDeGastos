@@ -2,8 +2,7 @@
 
 @section('title', 'Inicio')
 
-@section('NavTitle', 'Panel de Control')
-    
+@section('NavTitle')
 
 @section('contenido')
     <h1>Hola desde el home</h1>

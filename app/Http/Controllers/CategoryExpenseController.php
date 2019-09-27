@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryI;
+use App\CategoryExpense;
 use Illuminate\Http\Request;
 
-class CategoryIController extends Controller
+class CategoryExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class CategoryIController extends Controller
      */
     public function index()
     {
-        $categories = CategoryI::All();
-        return view('category_incomes.index', compact('categories'));
+        return view('categoryexpense.index', [
+            'categories' => CategoryExpense::get()
+        ]);
     }
 
     /**
@@ -25,7 +26,9 @@ class CategoryIController extends Controller
      */
     public function create()
     {
-        return view('category_incomes.create');
+        return view('categoryexpense.create', [
+            'category' => new CategoryExpense
+        ]);
     }
 
     /**
@@ -34,15 +37,16 @@ class CategoryIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $category = new CategoryI();
-        $category->name = $request->input('name');
-        $category->date = $request->input('date');
-        $category->save();
+        $fields = request()->validate([
+            'name' => 'required',
+            'date' => 'required|date'
+        ]);
 
-        $categories = CategoryI::All();
-        return view('category_incomes.index', compact('categories'));
+        CategoryExpense::create($fields);
+
+        return redirect()->route('categoryexpense.index')->with('status','Registro exitoso');
     }
 
     /**
@@ -62,9 +66,11 @@ class CategoryIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryExpense $categoryexpense)
     {
-        //
+        return view('categoryexpense.edit',[
+            'category' => $categoryexpense
+        ]);
     }
 
     /**
@@ -74,9 +80,16 @@ class CategoryIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryExpense $categoryexpense)
     {
-        //
+        $fields = request()->validate([
+            'name' => 'required',
+            'date' => 'required|date'
+        ]);
+
+        $categoryexpense->update($fields);
+
+        return redirect()->route('categoryexpense.index')->with('status','Editado con éxito.');
     }
 
     /**
