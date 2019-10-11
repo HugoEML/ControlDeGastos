@@ -16,8 +16,6 @@
         @endif
     </div>
     <div class="container">
-    
-        @include('layouts.session-status')
 
         </div>
         <div class="container">
