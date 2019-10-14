@@ -1,8 +1,22 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+//Icons
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
+
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+$facebook-color: #3b5998;
+
+.btn-facebook{
+    background-color: $facebook-color;
+    border-color: darken($facebook-color, 3%);
+    color: white;
+    &:hover, &:active, &:focus{
+        color: white;
+    }
+}
