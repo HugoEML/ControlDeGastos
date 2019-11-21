@@ -51,5 +51,9 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+// $app->configure('mail');
+// $app->configure('services');
+// $app->register(Sichikawa\LaravelSendgridDriver\MailServiceProvider::class);
+// unset($app->availableBindings['mailer']);
 
 return $app;

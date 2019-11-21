@@ -10,14 +10,15 @@ class ContactController extends Controller
 {
     public function store()
     {
-        $msg = request()->validate([
-            'name' => 'required',
-            'email' => 'required|email', 
-            'subject' => 'required',
+    
+         $msg = request()->validate([
+             'name' => 'required',
+             'email' => 'required|email', 
+             'subject' => 'required',
             'content' => 'required|min:3'
         ]);
         
-        Mail::to('hugo@gmail.com')->queue(new MessageReceived($msg));
+        Mail::to('gustavomontesinos6@gmail.com')->queue(new MessageReceived($msg));
         
         return back()->with('status','Recibimos tu mensaje, te responderemos en menos de 24 horas.');
     }

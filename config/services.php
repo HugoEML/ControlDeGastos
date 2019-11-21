@@ -19,6 +19,10 @@ return [
         'secret' => env('MAILGUN_SECRET'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
+    
+    'sendgrid' => [
+        'api_key' => env('SENDGRID_API_KEY'),
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
@@ -46,6 +50,12 @@ return [
         'client_id' => env('GITHUB_ID'),
         'client_secret' => env('GITHUB_SECRET'),
         'redirect' => env('GITHUB_URL'),
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('GOOGLE_URL'),
     ],
 
 ];

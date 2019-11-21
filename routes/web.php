@@ -16,6 +16,6 @@ Route::post('contact', 'ContactController@store')->name('contact.store')->middle
 
 Auth::routes();
 
-Route::get('/redirect/{provider}', 'SocialController@redirect');
-Route::get('/callback/{provider}', 'SocialController@callback');
+Route::get('login/{provider}', 'SocialController@redirectToProvider');
+Route::get('login/{provider}/callback', 'SocialController@handleProviderCallback');
 

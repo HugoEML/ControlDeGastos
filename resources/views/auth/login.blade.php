@@ -67,17 +67,21 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="redirect/facebook" class="btn btn-primary" style="background-color: #3b5999;">
+                    {{-- <a href="redirect/facebook" class="btn btn-primary" style="background-color: #3b5999;">
                         <i class="fa fa-facebook"></i>
                         Login con Facebook
                     </a>
                     <a href="redirect/twitter" class="btn btn-primary" style="background-color: #55acee;">
                         <i class="fa fa-twitter"></i>
                         Login con Twitter
-                    </a>
-                    <a href="redirect/github" class="btn btn-primary" style="background-color: #333;">
+                    </a> --}}
+                    <a href="login/github" class="btn btn-primary" style="background-color: #333;">
                         <i class="fa fa-github"></i>
                         Login con Github
+                    </a>
+                    <a href="login/google" class="btn btn-primary" style="background-color: #ea4335;">
+                        <i class="fa fa-google"></i>
+                        Login con Google
                     </a>
                 </div>
             </div>
